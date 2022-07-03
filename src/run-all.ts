@@ -1,3 +1,6 @@
+// See https://2ality.com/2018/05/child-process-streams.html#reading-from-a-child-process.
+// See https://medium.com/@NorbertdeLangen/communicating-between-nodejs-processes-4e68be42b917.
+
 import { fork } from "child_process";
 import { runNewman } from "./run-newman";
 import { Readable } from "stream";

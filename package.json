@@ -1,7 +1,7 @@
 {
   "name": "newman-transform",
   "version": "1.0.0",
-  "description": "Runs Newman with a proxy to transform JSON responses before test assertions are applied.",
+  "description": "Demonstrates how to runs Newman with a proxy to transform JSON responses before test assertions are applied.",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
