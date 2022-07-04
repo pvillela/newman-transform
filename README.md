@@ -8,3 +8,5 @@ The [example-data](example-data) directory contains:
 - `Hello-World.postman_collection.json` -- the out-of-the-box [Postman](https://learning.postman.com/docs/getting-started/installation-and-updates/) collection that uses the Postman echo service to illustrate simple API testing.
 - `Hello-Proxy-Post.postman_collection.json` -- a modification of the above collection to illustrate testing with the proxy server defined in [src/run-proxy.ts](src/run-proxy.ts) and transformation functions in [src/transforms.ts].
 - `Hello-Proxy-Put.postman_collection.json` -- same as the above, but to illustrate PUT requests instead of POSTs.
+
+**To run the example**, `cd` to the directory where this repo was downloaded and run `npx ts-node src/run-all.ts` or `npm run example`.

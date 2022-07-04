@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.js",
   "scripts": {
+    "example": "ts-node src/run-all.ts",
+    "compile": "tsc --build tsconfig.production.json"
   },
   "repository": {
     "type": "git",
