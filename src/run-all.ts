@@ -17,18 +17,18 @@ async function main() {
     {stdio: [ "pipe", "pipe", "pipe", "ipc" ]});
 
   // Awaits until the proxy server is ready to receive requests.
-  await echoReadable(proxyServer.stdout as Readable);
+  await waitUntilReady(proxyServer.stdout as Readable, "Application is running");
 
-  runNewman();
+  runNewman(proxyServer);
 
   console.log("### DONE");
 }
 
 main().catch((err) => {console.log(err)});
 
-async function echoReadable(readable: Readable) {
-  for await (const line of chunksToLinesAsync(readable)) { // (C)
+async function waitUntilReady(readable: Readable, readyMarker: string) {
+  for await (const line of chunksToLinesAsync(readable)) {
     console.log("LINE: "+chomp(line))
-    if (line.startsWith("Application is running")) break;
+    if (line.startsWith(readyMarker)) break;
   }
 }

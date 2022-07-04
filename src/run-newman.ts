@@ -11,15 +11,19 @@
 import * as fs from "fs";
 import newman from "newman";
 import { collection } from "./config";
+import { ChildProcess } from "child_process";
 
 const results: string[] = [];
 
-export function runNewman() {
+export function runNewman(proxy: ChildProcess) {
   newman
-    .run({
-      reporters: "cli",
-      collection,
-    })
+    .run(
+      {
+        reporters: "cli",
+        collection,
+      },
+      (err, summary) => { proxy.kill("SIGHUP"); }
+    )
     .on("request", function (err, args) {
       if (!err) {
         // here, args.response represents the entire response object

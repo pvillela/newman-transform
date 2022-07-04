@@ -11,6 +11,7 @@ import { ReqTransformIn, ReqTransformOut, ResTransformIn, ResTransformOut } from
 import * as c from "console";
 import * as fs from "fs";
 
+// Custom console to log to file.
 const logger = new c.Console({
   stdout: fs.createWriteStream("out/stdout.log"),
 });
