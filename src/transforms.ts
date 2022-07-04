@@ -8,19 +8,25 @@
    @typescript-eslint/no-unsafe-member-access */
 
 import { ReqTransformIn, ReqTransformOut, ResTransformIn, ResTransformOut } from "json-proxy-transform";
+import * as c from "console";
+import * as fs from "fs";
+
+const logger = new c.Console({
+  stdout: fs.createWriteStream("out/stdout.log"),
+});
 
 export function reqTransform(input: ReqTransformIn): ReqTransformOut {
   const origReqBody = input.data as any;
-  console.log("********* origReqBody:", JSON.stringify(origReqBody));
+  logger.log("********* origReqBody:", JSON.stringify(origReqBody));
   const msg = origReqBody.message;
   if (msg) {
     const trfmReqBody = { ...origReqBody };
     trfmReqBody.message = (origReqBody.message as string) + " - by proxy";
-    console.log("********* trfmReqBody:", JSON.stringify(trfmReqBody));
+    logger.log("********* trfmReqBody:", JSON.stringify(trfmReqBody));
     const reqHeaders = input.headers;
     // Set a custom header.
     reqHeaders.foo = "bar";
-    console.log("********* reqHeaders:", reqHeaders);
+    logger.log("********* reqHeaders:", reqHeaders);
     return { data: trfmReqBody, headers: reqHeaders };
   }
   throw new Error("Unable to transform request.");
@@ -28,7 +34,7 @@ export function reqTransform(input: ReqTransformIn): ReqTransformOut {
 
 export function resTransform(input: ResTransformIn): ResTransformOut {
   const origResData = input.data as any;
-  console.log("********* origResData:", origResData);
+  logger.log("********* origResData:", origResData);
   const msg = origResData.data.message;
   if (msg) {
     const result = {
@@ -36,11 +42,11 @@ export function resTransform(input: ResTransformIn): ResTransformOut {
     };
     const trfmResData = { ...origResData };
     trfmResData.data = result;
-    console.log("********* trfmResData:", trfmResData);
+    logger.log("********* trfmResData:", trfmResData);
     const resHeaders = input.headers;
-    console.log("********* resHeaders:", resHeaders);
-    console.log("********* Response status:", input.status);
-    console.log("********* Manual computation of content-length header value:", JSON.stringify(trfmResData).length);
+    logger.log("********* resHeaders:", resHeaders);
+    logger.log("********* Response status:", input.status);
+    logger.log("********* Manual computation of content-length header value:", JSON.stringify(trfmResData).length);
     // Notice below headers are not returned so input headers will be used.
     return { data: trfmResData };
   }
