@@ -1,3 +1,9 @@
+/*
+    Set configuration properties required by other modules. The examples below hard-code
+    the configuration properties but also indicate how they can be pulled from the
+    environment.
+ */
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable global-require */
 

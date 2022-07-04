@@ -1,5 +1,6 @@
 /*
     Transformation functions.
+    See https://github.com/pvillela/ts-json-proxy-transform.
  */
 
 /* eslint-disable @typescript-eslint/no-explicit-any,

@@ -1,3 +1,8 @@
+/*
+    Run Newman to execute test collection.
+    See https://www.kimsereylam.com/js/postman/2020/05/29/using-newman-in-nodejs.html.
+ */
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment,
    @typescript-eslint/no-unsafe-member-access,
    @typescript-eslint/no-unsafe-call,
