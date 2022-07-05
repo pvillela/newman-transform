@@ -7,7 +7,7 @@
  */
 
 import { fork } from "child_process";
-import { runNewman } from "./run-newman";
+import { runNewmanP } from "./run-newman";
 import { Readable } from "stream";
 import { chunksToLinesAsync, chomp } from "@rauschma/stringio";
 
@@ -19,7 +19,8 @@ async function main() {
   // Awaits until the proxy server is ready to receive requests.
   await waitUntilReady(proxyServer.stdout as Readable, "Application is running");
 
-  runNewman(proxyServer);
+  await runNewmanP();
+  proxyServer.kill("SIGHUP");
 
   console.log("### DONE");
 }

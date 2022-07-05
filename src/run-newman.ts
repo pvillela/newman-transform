@@ -9,21 +9,30 @@
    @typescript-eslint/no-unsafe-argument */
 
 import * as fs from "fs";
-import newman from "newman";
+import { NewmanRunSummary } from "newman";
 import { collection } from "./config";
-import { ChildProcess } from "child_process";
+import EventEmitter from "events";
+import { newmanP } from "./promise-utils";
 
 const results: string[] = [];
 
-export function runNewman(proxy: ChildProcess) {
-  newman
-    .run(
-      {
-        reporters: "cli",
-        collection,
-      },
-      (err, summary) => { proxy.kill("SIGHUP"); }
-    )
+export function runNewmanP(): Promise<NewmanRunSummary> {
+  const ee: { emitter: EventEmitter | undefined } = { emitter: undefined };
+
+  const p = newmanP(
+    {
+      reporters: "cli",
+      collection,
+    },
+    ee
+  );
+
+  if (!ee.emitter) {
+    // There was a error and promise was rejected.
+    return p;
+  }
+
+  ee.emitter
     .on("request", function (err, args) {
       if (!err) {
         // here, args.response represents the entire response object
@@ -40,4 +49,6 @@ export function runNewman(proxy: ChildProcess) {
         JSON.stringify(results, null, 4)
       );
     });
+
+  return p;
 }
