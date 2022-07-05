@@ -5,10 +5,10 @@
 
 import { proxy } from "json-proxy-transform";
 import { reqTransform, resTransform } from "./transforms";
-import { proxyPort, svcBaseUrl } from "./config";
+import { config } from "./config";
 
 proxy(
-  proxyPort,
-  svcBaseUrl,
+  config.proxyPort,
+  config.svcBaseUrl,
   { reqTransform, resTransform }
 );

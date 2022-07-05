@@ -10,9 +10,9 @@
 
 import * as fs from "fs";
 import { NewmanRunSummary } from "newman";
-import { collection } from "./config";
 import EventEmitter from "events";
 import { newmanP } from "./promise-utils";
+import { config } from "./config";
 
 const results: string[] = [];
 
@@ -22,7 +22,7 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
   const p = newmanP(
     {
       reporters: "cli",
-      collection,
+      collection: config.collection,
     },
     ee
   );
