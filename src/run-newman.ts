@@ -10,7 +10,6 @@
 
 import * as fs from "fs";
 import { NewmanRunSummary } from "newman";
-import EventEmitter from "events";
 import { newmanP } from "./promise-utils";
 import { config } from "./config";
 
