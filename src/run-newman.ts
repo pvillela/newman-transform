@@ -27,10 +27,8 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
     ee
   );
 
-  if (!ee.emitter) {
-    // There was a error and promise was rejected.
-    return p;
-  }
+  // This can't happen.
+  if (!ee.emitter) throw new Error("newman.run cannot return undefined emitter.");
 
   ee.emitter
     .on("request", function (err, args) {

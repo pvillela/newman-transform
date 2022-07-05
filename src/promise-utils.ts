@@ -5,7 +5,7 @@
 import { NewmanRunOptions, NewmanRunSummary, run } from "newman";
 import EventEmitter from "events";
 
-// Newman run function returning a promise.
+// Newman `run` function returning a promise.
 export function newmanP(
   options: NewmanRunOptions,
   ee: { emitter: EventEmitter | undefined },
