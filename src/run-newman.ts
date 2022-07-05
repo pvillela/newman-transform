@@ -17,20 +17,14 @@ import { config } from "./config";
 const results: string[] = [];
 
 export function runNewmanP(): Promise<NewmanRunSummary> {
-  const ee: { emitter: EventEmitter | undefined } = { emitter: undefined };
-
-  const p = newmanP(
+  const { emitter, pSummary } = newmanP(
     {
       reporters: "cli",
       collection: config.collection,
     },
-    ee
   );
 
-  // This can't happen.
-  if (!ee.emitter) throw new Error("newman.run cannot return undefined emitter.");
-
-  ee.emitter
+  emitter
     .on("request", function (err, args) {
       if (!err) {
         // here, args.response represents the entire response object
@@ -48,5 +42,5 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
       );
     });
 
-  return p;
+  return pSummary;
 }
