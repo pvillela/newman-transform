@@ -15,7 +15,10 @@ import { config } from "./config";
 
 const results: string[] = [];
 
-export function runNewmanP(): Promise<NewmanRunSummary> {
+// Runs Newman for the test collection.
+// This function only needs to be async if the await code to illustrate the race condition is
+// uncommented.
+export async function runNewmanP(): Promise<NewmanRunSummary> {
   const { emitter, pSummary } = newmanP(
     {
       reporters: "cli",
@@ -23,6 +26,11 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
       // abortOnFailure: true // uncomment to abort on test script errors or assertion failures
     } as NewmanRunOptions, // type assertion required if abortOnFailure is used because it is not in types file
   );
+
+  // There is a race condition in Newman. If the below line is uncommented, the event handlers
+  // below will not execute. If it is uncommented but the timeout is set to 100, the event
+  // handlers will execute.
+  // await new Promise(resolve => setTimeout(resolve, 5000));
 
   emitter
     .on("request", function (err, args) {
@@ -33,6 +41,7 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
 
         results.push(JSON.parse(body)); // this is just to aggregate all responses into one object
       }
+      console.log("********** event handler for `request` executed");
     })
     .on("done", function (err, summary) {
       // write the details to any file of your choice. The format may vary depending on your use case
@@ -40,6 +49,7 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
         "./out/migration-report.json",
         JSON.stringify(results, null, 4)
       );
+      console.log("********** event handler for `done` executed");
     });
 
   return pSummary;
