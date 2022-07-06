@@ -9,7 +9,7 @@
    @typescript-eslint/no-unsafe-argument */
 
 import * as fs from "fs";
-import { NewmanRunSummary } from "newman";
+import { NewmanRunOptions, NewmanRunSummary } from "newman";
 import { newmanP } from "./promise-utils";
 import { config } from "./config";
 
@@ -20,7 +20,8 @@ export function runNewmanP(): Promise<NewmanRunSummary> {
     {
       reporters: "cli",
       collection: config.collection,
-    },
+      // abortOnFailure: true // uncomment to abort on test script errors or assertion failures
+    } as NewmanRunOptions, // type assertion required if abortOnFailure is used because it is not in types file
   );
 
   emitter

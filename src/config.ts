@@ -16,7 +16,7 @@ const proxyPort = Number(process.env.PROXY_PORT);
 const svcBaseUrl = process.env.SVC_BASE_URL;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const collection: Collection = require("../example-data/Hello-Proxy-Post.postman_collection.json");
+const collection: Collection = require("../example-data/Hello-Proxy-Post-Mixed.postman_collection.json");
 
 export const config = {
   proxyPort,

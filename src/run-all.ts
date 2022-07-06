@@ -19,7 +19,12 @@ async function main() {
   // Awaits until the proxy server is ready to receive requests.
   await waitUntilReady(proxyServer.stdout as Readable, "Application is running");
 
-  await runNewmanP();
+  try {
+    await runNewmanP();
+  } catch (e) {
+    console.log("!!!!!!!!!! ERROR in Newman execution:", e);
+  }
+
   proxyServer.kill("SIGHUP");
 
   console.log("### DONE");
