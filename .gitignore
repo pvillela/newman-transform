@@ -146,4 +146,5 @@ dist
 bin
 
 # ignore output directories
-out
+out/*
+!out/.gitkeep
