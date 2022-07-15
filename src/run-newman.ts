@@ -10,7 +10,7 @@
 
 import * as fs from "fs";
 import { NewmanRunOptions, NewmanRunSummary } from "newman";
-import { newmanP } from "./promise-utils";
+import { newmanP } from "./newman-p";
 import { config } from "./config";
 
 const results: string[] = [];

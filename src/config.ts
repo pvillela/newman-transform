@@ -4,13 +4,10 @@
     environment.
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable global-require */
+import { CollectionDefinition } from "postman-collection";
 
-import { Collection } from "postman-collection";
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const collection: Collection = require("../example-data/Hello-Proxy-Post-Mixed.postman_collection.json");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const collection = require("../example-data/Hello-Proxy-Post-Mixed.postman_collection.json") as CollectionDefinition
 
 export const config = {
   proxyPort: Number(process.env.PROXY_PORT || "8000"),
